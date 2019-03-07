@@ -1,0 +1,242 @@
+﻿///$tab Main
+SET ThousandSep=',';
+SET DecimalSep='.';
+SET MoneyThousandSep=',';
+SET MoneyDecimalSep='.';
+SET MoneyFormat='$#,##0.00;($#,##0.00)';
+SET TimeFormat='h:mm:ss TT';
+SET DateFormat='M/D/YYYY';
+SET TimestampFormat='M/D/YYYY h:mm:ss[.fff] TT';
+SET FirstWeekDay=6;
+SET BrokenWeeks=1;
+SET ReferenceDay=0;
+SET FirstMonthOfYear=1;
+SET CollationLocale='en-US';
+SET MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+SET LongMonthNames='January;February;March;April;May;June;July;August;September;October;November;December';
+SET DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
+SET LongDayNames='Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday';
+ODBC CONNECT TO [SQLite3 Datasource];ODBC CONNECT TO [SQLite3 Datasource];
+
+///$tab Dimension
+ActivityCode:
+LOAD Code as ActivityCode,
+    Description as ActivityCodeDesc;
+SQL SELECT *
+FROM ActivityCode;
+
+AgeRecode12:
+LOAD Code as AgeRecode12,
+    Description as AgeRecode12Desc;
+SQL SELECT *
+FROM AgeRecode12;
+
+AgeRecode27:
+LOAD Code as AgeRecode27,
+    Description as AgeRecode27Desc;
+SQL SELECT *
+FROM AgeRecode27;
+
+AgeRecode52:
+LOAD Code as AgeRecode52,
+    Description as AgeRecode52Desc;
+SQL SELECT *
+FROM AgeRecode52;
+
+AgeType:
+LOAD Code as AgeType,
+    Description as AgeTypeDesc;
+SQL SELECT *
+FROM AgeType;
+
+BridgedRaceFlag:
+LOAD Code as BridgedRaceFlag,
+    Description as BridgedRaceFlagDesc;
+SQL SELECT *
+FROM BridgedRaceFlag;
+
+DayOfWeekOfDeath:
+LOAD Code as DayOfWeekOfDeath,
+    Description as DayOfWeekOfDeathDesc;
+SQL SELECT *
+FROM DayOfWeekOfDeath;
+
+Education1989Revision:
+LOAD Code as Education1989Revision,
+    Description as Education1989RevisionDesc;
+SQL SELECT *
+FROM Education1989Revision;
+
+Education2003Revision:
+LOAD Code as Education2003Revision,
+    Description as Education2003RevisionDesc;
+SQL SELECT *
+FROM Education2003Revision;
+
+EducationReportingFlag:
+LOAD Code as EducationReportingFlag,
+    Description as EducationReportingFlagDesc;
+SQL SELECT *
+FROM EducationReportingFlag;
+
+HispanicOrigin:
+LOAD Code as HispanicOrigin,
+    Description as HispanicOriginDesc;
+SQL SELECT *
+FROM HispanicOrigin;
+
+HispanicOriginRaceRecode:
+LOAD Code as HispanicOriginRaceRecode,
+    Description as HispanicOriginRaceRecodeDesc;
+SQL SELECT *
+FROM HispanicOriginRaceRecode;
+
+Icd10Code:
+LOAD Code as Icd10Code,
+    Description as Icd10CodeDesc;
+SQL SELECT *
+FROM Icd10Code;
+
+InfantAgeRecode22:
+LOAD Code as InfantAgeRecode22,
+    Description as InfantAgeRecode22Desc;
+SQL SELECT *
+FROM InfantAgeRecode22;
+
+MannerOfDeath:
+LOAD Code as MannerOfDeath,
+    Description as MannerOfDeathDesc;
+SQL SELECT *
+FROM MannerOfDeath;
+
+MaritalStatus:
+LOAD Code as MaritalStatus,
+    Description as MaritalStatusDesc;
+SQL SELECT *
+FROM MaritalStatus;
+
+MethodOfDisposition:
+LOAD Code as MethodOfDisposition,
+    Description as MethodOfDispositionDesc;
+SQL SELECT *
+FROM MethodOfDisposition;
+
+PlaceOfDeathAndDecedentsStatus:
+LOAD Code as PlaceOfDeathAndDecedentsStatus,
+    Description as PlaceOfDeathAndDecedentsStatusDesc;
+SQL SELECT *
+FROM PlaceOfDeathAndDecedentsStatus;
+
+PlaceOfInjury:
+LOAD Code as PlaceOfInjury,
+    Description as PlaceOfInjuryDesc;
+SQL SELECT *
+FROM PlaceOfInjury;
+
+Race:
+LOAD Code as Race,
+    Description as RaceDesc;
+SQL SELECT *
+FROM Race;
+
+RaceImputationFlag:
+LOAD Code as RaceImputationFlag,
+    Description as RaceImputationFlagDesc;
+SQL SELECT *
+FROM RaceImputationFlag;
+
+RaceRecode3:
+LOAD Code as RaceRecode3,
+    Description as RaceRecode3Desc;
+SQL SELECT *
+FROM RaceRecode3;
+
+RaceRecode5:
+LOAD Code as RaceRecode5,
+    Description as RaceRecode5Desc;
+SQL SELECT *
+FROM RaceRecode5;
+
+ResidentStatus:
+LOAD Code as ResidentStatus,
+    Description as ResidentStatusDesc;
+SQL SELECT *
+FROM ResidentStatus;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///$tab Fact
+DeathRecords:
+LOAD Id as DeathRecordId,
+    ResidentStatus,
+    Education1989Revision,
+    Education2003Revision,
+    EducationReportingFlag,
+    MonthOfDeath,
+    Sex,
+    AgeType,
+    Age,
+    AgeSubstitutionFlag,
+    AgeRecode52,
+    AgeRecode27,
+    AgeRecode12,
+    InfantAgeRecode22,
+    PlaceOfDeathAndDecedentsStatus,
+    MaritalStatus,
+    DayOfWeekOfDeath,
+    CurrentDataYear,
+    InjuryAtWork,
+    MannerOfDeath,
+    MethodOfDisposition,
+    Autopsy,
+    ActivityCode,
+    PlaceOfInjury,
+    Icd10Code,
+    CauseRecode358,
+    CauseRecode113,
+    InfantCauseRecode130,
+    CauseRecode39,
+    NumberOfEntityAxisConditions,
+    NumberOfRecordAxisConditions,
+    Race,
+    BridgedRaceFlag,
+    RaceImputationFlag,
+    RaceRecode3,
+    RaceRecode5,
+    HispanicOrigin,
+    HispanicOriginRaceRecode;
+SQL SELECT *
+FROM DeathRecords;
+
+AxisConditions:
+LOAD Id,
+    DeathRecordId,
+    Part,
+    Line,
+    Sequence,
+    Icd10Code as Icd10CODE;
+SQL SELECT *
+FROM EntityAxisConditions;
+
+Concatenate
+
+RecordAxisConditions:
+LOAD Id,
+    DeathRecordId,
+    Icd10Code as Icd10CODE;
+SQL SELECT *
+FROM RecordAxisConditions;
+
